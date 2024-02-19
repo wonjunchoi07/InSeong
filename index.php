@@ -10,18 +10,17 @@ echo "<script>console.log('path[1]= ".$path[1]."');</script>";
 
 switch ($resource[1]){
     case '':
-        echo "Root Directory Access";
+        $page = './pages/main.php';
         break;
-
     case 'login':
-        $page = './pages/index.php';
+        $page = './pages/dir.php';
         break;
     case 'register':
         $page = './pages/admin.php';
         break;
     default:
-    echo "이도저도 아무것도 아닌 그러하지 못한 그렇지 아니하지 아니하여 아니하지 아니못하여 아무것도 아닌 곳";
-    break;
+        $page = "./pages/404.php";
+        break;
 }
 include($page);
 /**
