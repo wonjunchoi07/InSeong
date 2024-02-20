@@ -1,29 +1,22 @@
 <?php
-    $host = "localhost";
-    $user = "root";
-    $pass = "";
-    $db = "inseong";
-
-    $conn = new mysqli($host, $user, $pass, $db);
-
-    if ($conn->connect_error) {
-        die("연결실패: " . $conn->connect_error);
-    }
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        session_start();
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        $sql = "SELECT user_idx, username FROM users WHERE username = '$username' and password = '$password'";
-        $result = $conn->query($sql);
+        $sql = "SELECT user_idx, password FROM users WHERE username = :username";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(":username", $username);
 
-        if ($result->num_rows > 0) {
-            session_start();
-            $row = $result->fetch_assoc();
-            $_SESSION["userIdx"] = $row["user_idx"];
-            header("location: ./pages/main.php");
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && ($password == $user['password'])) {
+           $_SESSION["user_idx"] = $user["user_idx"];
+           header("Location: /");
+            exit;
         } else {
-            $error = "아이디 또는 비밀번호가 잘못되었습니다.";
+            echo "아이디 또는 비밀번호가 잘못되었습니다.";
         }
     }
 

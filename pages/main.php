@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-if (isset($_SESSION["userIdx"])){
-    $userIdx = $_SESSION["userIdx"];
+if(isset($_SESSION["user_idx"])){
     echo "로그인 됨";
 }else{
     echo "로그인 안 됨";
