@@ -18,6 +18,9 @@ switch ($resource[1]){
     case 'register':
         $page = './pages/admin.php';
         break;
+    case 'write' :
+        $page = './pages/write.php';
+        break;
     default:
         $page = "./pages/404.php";
         break;
