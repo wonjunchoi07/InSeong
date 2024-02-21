@@ -1,3 +1,29 @@
+<?php
+if(isset($_SESSION["user_idx"])){
+    echo "<script>alert('로그인 후 이용 가능합니다.'); location.herf = '/login';</script>";
+}
+//글 작성 로직
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    session_start();
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+    $user_idx = $_SESSION["user_idx"];
+    //$write_date = $_POST['write_date'];
+    //$is_deleted = $_POST['is_deleted'];
+
+    try {
+        $sql = "INSERT INTO posts(user_idx, title, content) VALUES (?, ?, ?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$user_idx, $title, $content]);
+        echo "글 등록이 정상적으로 완료되었습니다.";
+    }catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,7 +94,7 @@
 <body>
     <div class="container">
         <h2>게시글 작성</h2>
-        <form action="submit_post.php" method="post">
+        <form action="posting" method="post">
             <div class="form-group">
                 <label for="title">제목</label>
                 <input type="text" id="title" name="title" required>
