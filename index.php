@@ -11,7 +11,7 @@ echo "<script>console.log('path[0]= ".$path[0]."');</script>";
 echo "<script>console.log('path[1]= ".$path[1]."');</script>";
 
 $page = '';
-include('./components/header.html')
+include('./components/header.php');
 switch ($resource[1]){
     case '':
         $page = './pages/main.php';

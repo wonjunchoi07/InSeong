@@ -13,8 +13,16 @@
         </div>
         <div id="right">
             <ul>
-                <li><a href="./dir.php">로그인</a></li>
-                <li><a href="./admin.php">회원가입</a></li>
+                <?php
+                if(isset($_SESSION["user_idx"])){
+                    echo "<li><a href='./logout'>logout</a></li>";
+                }else{
+                    echo "
+                    <li><a href='./dir.php'>로그인</a></li>
+                    <li><a href='./admin.php'>회원가입</a></li>";
+                }
+                    
+                ?>
             </ul>
         </div>
     </header>
