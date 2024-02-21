@@ -1,15 +1,4 @@
 <?php
-session_start();
-
-if(isset($_SESSION["user_idx"])){
-    echo "로그인 됨";
-}else{
-    echo "로그인 안 됨";
-}
-
-function logout(){
-    session_destroy();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +9,7 @@ function logout(){
 </head>
 <body>
     <form action="" method="post">
-        <button id="logout" name="logout" type="submit" onclick="<?php echo logout() ?>">logout</button>
+       <a href="./pages/logout.php">logout</a>
     </form>
 </body>
 </html>

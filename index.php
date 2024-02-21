@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="./css/global.css">
+
 <?php
 include('./config/dbconnect.php');
 
@@ -8,6 +10,8 @@ $resource = explode("/",$path[0]);
 echo "<script>console.log('path[0]= ".$path[0]."');</script>";
 echo "<script>console.log('path[1]= ".$path[1]."');</script>";
 
+$page = '';
+include('./components/header.html')
 switch ($resource[1]){
     case '':
         $page = './pages/main.php';
@@ -20,6 +24,9 @@ switch ($resource[1]){
         break;
     case 'write' :
         $page = './pages/write.php';
+        break;
+    case 'logout' : 
+        $page = './pages/logout.php';
         break;
     default:
         $page = "./pages/404.php";
