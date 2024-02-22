@@ -56,5 +56,6 @@ echo "<script>console.log('path[1]= ".$path[1]."');</script>";
         * 상세 정보(Path)
         */
     ?>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </body>
 </html>
