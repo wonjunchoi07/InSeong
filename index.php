@@ -39,6 +39,9 @@ echo "<script>console.log('path[1]= ".$path[1]."');</script>";
             case 'posts' :
                 $page = './pages/posts.php';
                 break;
+            case 'maneger' : 
+                $page = './pages/maneger.php';
+                break;
             default:
                 $page = "./pages/404.php";
                 break;
