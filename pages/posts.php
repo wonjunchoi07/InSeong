@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $sql = "SELECT * FROM posts WHERE is_deleted = 0 ORDER BY write_date DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
@@ -22,6 +24,9 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $divinnertext .= "<p>게시글 ID : ".$post["post_idx"]."</p>";
                 $divinnertext .= "<p>게시글 작성일 : ".$post["write_date"]."</p>";
                 $divinnertext .= "<p>".$post["content"]."</p>";
+                if($post["user_idx"] == $_SESSION["user_idx"]) {
+                    $divinnertext .= "<a href='./modify?postId=" . $post["post_idx"] . "'><button type='submit'>수정하기</button></a>";
+                }
                 $divinnertext .= "</div>";
                 echo $divinnertext;
             }

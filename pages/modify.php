@@ -1,36 +1,31 @@
 <?php
 if(isset($_SESSION["user_idx"])){
-    echo "<script>alert('로그인 후 이용 가능합니다.'); location.herf = '/login';</script>";
+    echo "<script>alert('로그인 후 이용 가능합니다.'); location.href = '/login';</script>";
 }
-//글 작성 로직
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    session_start();
     $title = $_POST['title'];
     $content = $_POST['content'];
-    $user_idx = $_SESSION["user_idx"];
-    //$write_date = $_POST['write_date'];
-    //$is_deleted = $_POST['is_deleted'];
 
     try {
-        $sql = "INSERT INTO posts(user_idx, title, content) VALUES (?, ?, ?)";
+        $sql = "UPDATE posts SET title = :title, content = :content WHERE post_idx = :postId";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$user_idx, $title, $content]);
-        echo "글 등록이 정상적으로 완료되었습니다.";
-    }catch (PDOException $e) {
+        $stmt->bindParam(":title", $title);
+        $stmt->bindParam(":content", $content);
+        $stmt->bindParam(":postId", $postId);
+        $stmt->execute();
+        echo "<script>alert('글 수정이 정상적으로 완료되었습니다.');</script>";
+    } catch (PDOException $e) {
         echo $e->getMessage();
     }
 }
-
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 작성</title>
-    <style>
+    <!-- Head contents -->
+</head>
+<style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -90,11 +85,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-color: #45a049;
         }
     </style>
-</head>
 <body>
     <div class="container">
-        <h2>게시글 작성</h2>
-        <form action="write" method="post">
+        <h2>수정글 작성</h2>
+        <form action="modify" method="post">
             <div class="form-group">
                 <label for="title">제목</label>
                 <input type="text" id="title" name="title" required>
@@ -104,9 +98,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" id="content" name="content" required></input>
             </div>
             <div class="form-group">
-                <input type="submit" value="작성">
+                <input type="submit" value="수정">
             </div>
         </form>
+        <form action="" method="post">
+            <input type="hidden" id="postId" name="postId" value="postId"> <!-- You need to provide postId -->
+            <button onClick='postDelete(this)'>게시글 삭제</button>
+        </form>
     </div>
+
+    <script>
+        function postDelete(elem){
+            const postId = document.getElementById('postId').value;
+            const isConfirm = confirm(`정말로 ${postId}번 게시글을 삭제하시겠습니까?`);
+            if (isConfirm){
+                $.ajax({
+                    url:'/maneger',
+                    type: 'POST',
+                    data: {"post_idx": postId},
+                    success: function(){
+                        alert("정상적으로 게시글이 삭제되었습니다");
+                        location.href='./maneger';
+                    },
+                    error: function(){
+                        alert("게시글 삭제 중 문제가 발생하였습니다.");
+                    }
+                })
+            }else{
+                alert("게시글 삭제가 취소되었습니다.");
+            }
+            return console.log(elem);
+        }
+    </script>
 </body>
 </html>

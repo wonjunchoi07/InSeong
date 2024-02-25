@@ -25,12 +25,12 @@ echo "<script>console.log('path[1]= ".$path[1]."');</script>";
                 $page = './pages/main.php';
                 break;
             case 'login':
-                $page = './pages/dir.php';
+                $page = './pages/login.php';
                 break;
             case 'register':
                 $page = './pages/admin.php';
                 break;
-            case 'posting' :
+            case 'write' :
                 $page = './pages/write.php';
                 break;
             case 'logout' : 
@@ -41,6 +41,9 @@ echo "<script>console.log('path[1]= ".$path[1]."');</script>";
                 break;
             case 'maneger' : 
                 $page = './pages/maneger.php';
+                break;
+            case 'modify' : 
+                $page = './pages/modify.php';
                 break;
             default:
                 $page = "./pages/404.php";

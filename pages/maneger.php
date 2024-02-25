@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if (!isset($_SESSION["user_idx"])) {
-    echo "<script>alert('로그인 후 이용 가능합니다.'); location.href = '/login';</script>";
+    echo "<script>alert('로그인 후 이용 가능합니다.'); location.hf = '/login';</script>";
     exit; // 실행을 중단하여 더 이상 진행되지 않도록 합니다.
 }
 
